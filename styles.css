@@ -1,7 +1,18 @@
 body {
   margin: 0;
-  background: linear-gradient(#5b8cbe, #abcff2);
+  background: linear-gradient(#027DFE, #009FFF, #04A9FF, #5BD9F9, #38F0E3, #38F0E3, #38F0E3, #38F0E3);
+  /* background: linear-gradient(#080607, #6A0D83, #FD5E53, #FC9B54, #FEE372, #FEE372, #FEE372); */
   overflow: hidden;
   width: 100vw;
   height: 100vh;
+  position: relative;
+}
+
+img {
+  position: absolute;
+  height: 100px;
+  top: calc(55vh - 100px);
+  right: 0;
+  width: 100vw;
+  z-index: -1;
 }
