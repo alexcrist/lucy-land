@@ -1,5 +1,6 @@
-import { getFootsteps, initAudio } from './audio';
+import { getFootsteps, getMusic, initAudio } from './audio';
 import { getCamera, render } from './scene';
+import { setSky } from './sky';
 
 let isMovingForwards = false;
 
@@ -16,7 +17,12 @@ const stop = () => {
 
 const renderLoop = () => {
   if (isMovingForwards) {
-    getCamera().position.z -= 0.02;
+    if (getCamera().position.z <= -10 && getMusic().paused) {
+      getMusic().play();
+    }
+    getCamera().position.z -= 0.02 * 40;
+    const percent = getCamera().position.z / -300 * 100;
+    setSky(percent);
     render();
   }
 requestAnimationFrame(renderLoop);

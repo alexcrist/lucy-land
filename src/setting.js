@@ -10,6 +10,7 @@ export const initSetting = () => {
   initWall();
   initPlants();
   initLightPosts();
+  initPictures();
 };
 
 const makeTextureMaterial = (fileName, xRepeats, yRepeats) => {
@@ -29,7 +30,7 @@ const initFloor = () => {
   const geometry = new THREE.PlaneGeometry(3, 1000);
   geometry.rotateX(-Math.PI / 2);
   geometry.translate(0, -2, 0);
-  const material = makeTextureMaterial('textures/floor.jpg', 4, 500);
+  const material = makeTextureMaterial('textures/floor.jpg', 2, 1000);
   addMesh(geometry, material);
 };
 
@@ -44,7 +45,7 @@ const initRailing = () => {
   geometryPart.translate(-1, -1, 0);
   geometries.push(geometryPart);
   const geometry = BufferGeometryUtils.mergeBufferGeometries(geometries);
-  const material = makeTextureMaterial('textures/concrete.webp', 1, 1000);
+  const material = makeTextureMaterial('textures/concrete.webp', 10, 50);
   addMesh(geometry, material);
 };
 
@@ -61,7 +62,7 @@ const initOcean = () => {
   const geometry = new THREE.PlaneGeometry(500, 1000);
   geometry.rotateX(-Math.PI / 2);
   geometry.translate(-250, -10, 0);
-  const material = makeTextureMaterial('textures/ocean.jpg', 10, 10);
+  const material = makeTextureMaterial('textures/ocean.jpg', 10, 70);
   addMesh(geometry, material);
 };
 
@@ -94,4 +95,36 @@ const initLightPosts = () => {
   const geometry = BufferGeometryUtils.mergeBufferGeometries(geometries);
   const material = makeTextureMaterial('textures/metal.jpg', 4, 4);
   addMesh(geometry, material);
+};
+
+const loadTextureAsync = (fileName) => {
+  return new Promise((resolve) => {
+    new THREE.TextureLoader().load(fileName, resolve);
+  });
+};
+
+const initPicture = async (fileName, z) => {
+  const texture = await loadTextureAsync(fileName);
+  const material = new THREE.MeshBasicMaterial({ map: texture });
+  const aspect = texture.image.width / texture.image.height;
+  const geometry = new THREE.PlaneGeometry(2 * aspect, 2);
+  geometry.rotateY(Math.PI / 4);
+  geometry.translate(-0.4, 0.25, z);
+  addMesh(geometry, material);
+  initPictureFrame(aspect, z);
+};
+
+const initPictureFrame = (aspect, z) => {
+  const geometry = new THREE.BoxGeometry(2 * aspect + 0.2, 2 + 0.2, 0.1);
+  geometry.rotateY(Math.PI / 4);
+  geometry.translate(-0.4, 0.25, z - 0.075);
+  const material = makeTextureMaterial('textures/wood.jpg', 1, 1);
+  addMesh(geometry, material);
+};
+
+const initPictures = async () => {
+  for (let i = 2; i <= 28; i++) {
+    await initPicture(`photos/${i}.jpg`, -10 * i - 5);
+  }
+  render();
 };
