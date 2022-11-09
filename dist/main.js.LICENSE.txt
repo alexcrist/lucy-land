@@ -1,0 +1,5 @@
+/*!
+ * tinygradient (v1.1.5)
+ * @copyright 2014-2021 Damien "Mistic" Sorel <contact@git.strangeplanet.fr>
+ * @licence MIT
+ */
