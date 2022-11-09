@@ -10,7 +10,7 @@ export const initAudio = () => {
   if (!music) {
     music = new Audio('audio/lucylandplaylist.mp3');
     music.loop = true;
-    music.volume = 0.4;
+    music.volume = 0.25;
   }
 
   if (!footsteps) {
