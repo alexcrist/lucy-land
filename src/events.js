@@ -20,8 +20,8 @@ const renderLoop = () => {
     if (getCamera().position.z <= -10 && getMusic().paused) {
       getMusic().play();
     }
-    getCamera().position.z -= 0.02 * 40;
-    const percent = getCamera().position.z / -300;
+    getCamera().position.z -= 0.02;
+    const percent = getCamera().position.z / -300 * 100;
     setSky(percent);
     render();
   }

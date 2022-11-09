@@ -2,6 +2,7 @@
   "scripts": {
     "start": "webpack watch --mode development",
     "build": "webpack --mode production",
+    "pre:deploy": "npm run build",
     "deploy": "gh-pages -d ."
   },
   "dependencies": {
